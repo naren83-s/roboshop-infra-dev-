@@ -7,7 +7,7 @@ terraform {
   }
    backend "s3" {
     bucket  = "renote-state-naren83-dev" # Replace with your unique bucket name
-    key     = "roboshop-dev-sg-rules"
+    key     = "roboshop-dev-bastion"
     region  = "us-east-1"
     encrypt = true
     use_lockfile   = true
