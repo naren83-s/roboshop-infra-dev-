@@ -3,7 +3,7 @@ resource "aws_instance" "mongod" {
   instance_type = "t3.micro"
   subnet_id = local.database_subnet_id
   vpc_security_group_ids = [local.mongod_sg_id]
-  iam_instance_profile = aws_iam_instance_profile.mongod.name
+#   iam_instance_profile = aws_iam_instance_profile.mongod.name
 
   tags = merge(
     {
