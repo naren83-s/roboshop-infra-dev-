@@ -1,8 +1,8 @@
-resource "aws_instance" "mongod" {
+resource "aws_instance" "mongodb" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   subnet_id = local.database_subnet_id
-  vpc_security_group_ids = [local.mongod_sg_id]
+  vpc_security_group_ids = [local.mongodb_sg_id]
 #   iam_instance_profile = aws_iam_instance_profile.mongod.name
 
   tags = merge(
@@ -14,15 +14,15 @@ resource "aws_instance" "mongod" {
 }
 
 
-resource "terraform_data" "mongod" {
+resource "terraform_data" "mongodb" {
   triggers_replace = [
-    aws_instance.mongod.id
+    aws_instance.mongodb.id
   ]
    connection {
     type     = "ssh"
     user     = "ec2-user"
     password = "DevOps321"
-    host     = aws_instance.mongod.private_ip
+    host     = aws_instance.mongodb.private_ip
   }
     provisioner "file" {
     source      = "boostrap.sh"    # Path on local machine
@@ -33,7 +33,7 @@ resource "terraform_data" "mongod" {
   provisioner "remote-exec" {
     inline = [ 
         "chmod +x /tmp/boostrap.sh",
-        "sudo sh /tmp/boostrap.sh mongod"
+        "sudo sh /tmp/boostrap.sh mongodb"
      ]
   }
 }
